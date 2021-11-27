@@ -1,9 +1,6 @@
+using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SimpleWorker
 {
@@ -18,6 +15,18 @@ namespace SimpleWorker
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
+                    services.AddMassTransit(x =>
+                    {
+                        x.AddConsumer<MessageConsumer>();
+
+                        x.UsingInMemory((context, cfg) =>
+                        {
+                            cfg.ConfigureEndpoints(context);
+                        });
+                    });
+
+                    services.AddMassTransitHostedService(true);
+
                     services.AddHostedService<Worker>();
                 });
     }
