@@ -1,6 +1,7 @@
 using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Configuration;
 
 namespace SimpleWorker
 {
@@ -15,19 +16,44 @@ namespace SimpleWorker
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.AddMassTransit(x =>
-                    {
-                        x.AddConsumer<MessageConsumer>();
+                    //UsingInMemoryTransport(services);
 
-                        x.UsingInMemory((context, cfg) =>
-                        {
-                            cfg.ConfigureEndpoints(context);
-                        });
-                    });
+                    UsingAzureServiceBusTransport(hostContext, services);
 
                     services.AddMassTransitHostedService(true);
 
-                    services.AddHostedService<Worker>();
+                    services.AddHostedService<MassTransitWorker>();
                 });
+
+        private static void UsingAzureServiceBusTransport(HostBuilderContext hostContext, IServiceCollection services)
+        {
+            IConfiguration configuration = hostContext.Configuration;
+            var connectionString =  configuration.GetConnectionString("AzureServiceBus");
+
+            services.AddMassTransit(x =>
+            {
+                x.AddConsumer<MessageConsumer>();
+
+                x.UsingAzureServiceBus((context, cfg) =>
+                {
+                    cfg.Host(connectionString);
+
+                    cfg.ConfigureEndpoints(context);
+                });
+            });
+        }
+
+        private static void UsingInMemoryTransport(IServiceCollection services)
+        {
+            services.AddMassTransit(x =>
+            {
+                x.AddConsumer<MessageConsumer>();
+
+                x.UsingInMemory((context, cfg) =>
+                {
+                    cfg.ConfigureEndpoints(context);
+                });
+            });
+        }
     }
 }
