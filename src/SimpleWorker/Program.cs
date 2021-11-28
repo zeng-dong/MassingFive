@@ -23,6 +23,7 @@ namespace SimpleWorker
                     services.AddMassTransitHostedService(true);
 
                     services.AddHostedService<MassTransitWorker>();
+                    services.AddHostedService<AnotherPublisher>();
                 });
 
         private static void UsingAzureServiceBusTransport(HostBuilderContext hostContext, IServiceCollection services)

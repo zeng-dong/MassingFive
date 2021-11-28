@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace SimpleWorker
 {
-    internal class MassTransitWorker : BackgroundService
+    internal class AnotherPublisher : BackgroundService
     {
         readonly IBus _bus;
-        
-        public MassTransitWorker(IBus bus)
+
+        public AnotherPublisher(IBus bus)
         {
             _bus = bus;
         }
@@ -19,7 +19,7 @@ namespace SimpleWorker
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                await _bus.Publish(new Message { Text = $"Bus published this message: The time is {DateTimeOffset.Now}" });
+                await _bus.Publish(new Message { Text = $"Another Publisher is publishing - The time is {DateTimeOffset.Now}" });
 
                 await Task.Delay(1000, stoppingToken);
             }
