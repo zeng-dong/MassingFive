@@ -1,3 +1,5 @@
+using Components.Consumers;
+using Contracts;
 using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -21,13 +23,21 @@ namespace UsingMediator
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddMassTransit(cfg =>
+            services.AddMediator(cfg =>
             {
+                cfg.AddConsumer<SubmitOrderConsumer>();
 
-
+                cfg.AddRequestClient<SubmitOrder>();
             });
 
-
+            //services.AddMassTransit(cfg =>
+            //{
+            //    cfg.AddConsumer<SubmitOrderConsumer>();
+            //                    
+            //    before version 7 mediator is added here: cfg.AddMediator(...) 
+            //    cfg.AddRequestClient<SubmitOrder>();
+            //
+            //});
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

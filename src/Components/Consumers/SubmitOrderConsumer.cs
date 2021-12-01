@@ -9,6 +9,10 @@ namespace Components.Consumers
     {
         public async Task Consume(ConsumeContext<SubmitOrder> context)
         {
+            await context.RespondAsync<OrderSubmissionAccepted>(new
+            {
+                InVar.Timestamp
+            });
             
         }
     }
