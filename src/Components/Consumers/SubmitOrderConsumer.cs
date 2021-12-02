@@ -11,7 +11,9 @@ namespace Components.Consumers
         {
             await context.RespondAsync<OrderSubmissionAccepted>(new
             {
-                InVar.Timestamp
+                InVar.Timestamp,
+                context.Message.OrderId,
+                context.Message.CustomerNumber
             });
             
         }
