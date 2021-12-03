@@ -10,7 +10,7 @@ namespace UsingMediator.Controllers
     [ApiController]
     [Route("[controller]")]
     public class OrderController : ControllerBase
-    {        
+    {
         readonly ILogger<OrderController> _logger;
         readonly IRequestClient<SubmitOrder> _submitOrderRequestClient;
 
@@ -51,7 +51,7 @@ namespace UsingMediator.Controllers
             {
                 var response = await rejected;
                 return BadRequest(response.Message);
-            }            
+            }
         }
     }
 }

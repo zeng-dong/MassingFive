@@ -9,7 +9,7 @@ namespace SimpleWorker
     internal class MassTransitWorker : BackgroundService
     {
         readonly IBus _bus;
-        
+
         public MassTransitWorker(IBus bus)
         {
             _bus = bus;

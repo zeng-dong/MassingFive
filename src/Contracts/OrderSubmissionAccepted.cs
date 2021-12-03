@@ -6,6 +6,6 @@ namespace Contracts
     {
         Guid OrderId { get; }
         DateTime Timestamp { get; }
-        string CustomerNumber { get;  }
+        string CustomerNumber { get; }
     }
 }

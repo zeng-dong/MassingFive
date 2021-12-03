@@ -1,7 +1,6 @@
 ﻿using Contracts;
 using MassTransit;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Threading.Tasks;
 
 namespace Components.Consumers
@@ -38,7 +37,7 @@ namespace Components.Consumers
                 context.Message.OrderId,
                 context.Message.CustomerNumber
             });
-            
+
         }
     }
 }

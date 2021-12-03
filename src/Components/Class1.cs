@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Components
+﻿namespace Components
 {
     public class Class1
     {

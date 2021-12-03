@@ -1,7 +1,7 @@
 using MassTransit;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Configuration;
 
 namespace SimpleWorker
 {
@@ -29,7 +29,7 @@ namespace SimpleWorker
         private static void UsingAzureServiceBusTransport(HostBuilderContext hostContext, IServiceCollection services)
         {
             IConfiguration configuration = hostContext.Configuration;
-            var connectionString =  configuration.GetConnectionString("AzureServiceBus");
+            var connectionString = configuration.GetConnectionString("AzureServiceBus");
 
             services.AddMassTransit(x =>
             {

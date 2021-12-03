@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
@@ -23,7 +22,6 @@ namespace UsingMediator
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureMediatorServices(IServiceCollection services)
         {
-
             services.AddMediator(cfg =>
             {
                 cfg.AddConsumer<SubmitOrderConsumer>();
@@ -31,10 +29,10 @@ namespace UsingMediator
 
                 cfg.AddRequestClient<SubmitOrder>();
 
-                // Remove this if you are only using this request client by creating it on the fly 
+                // Remove this if you are only using this request client by creating it on the fly
                 cfg.AddRequestClient<GetWeatherForecasts>();
             });
-                        
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -43,13 +41,12 @@ namespace UsingMediator
         }
 
         public void ConfigureRabbitServices(IServiceCollection services)
-        {           
-
+        {
             //services.AddMassTransit(cfg =>
             //{
             //    cfg.AddConsumer<SubmitOrderConsumer>();
-            //                    
-            //    before version 7 mediator is added here: cfg.AddMediator(...) 
+            //
+            //    before version 7 mediator is added here: cfg.AddMediator(...)
             //    cfg.AddRequestClient<SubmitOrder>();
             //
             //});
@@ -61,22 +58,21 @@ namespace UsingMediator
             });
         }
 
-
         public void ConfigureMediator(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
             logger.LogInformation("Now configure mediator specifics", env.EnvironmentName);
-            DeveloperFriendlyFeatures(app);
+            ConfigureDeveloperFriendlyFeatures(app);
             Configure(app, env, logger);
         }
 
         public void ConfigureRabbit(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
             logger.LogInformation("Now configure rabbit specifics", env.EnvironmentName);
-            DeveloperFriendlyFeatures(app);
+            ConfigureDeveloperFriendlyFeatures(app);
             Configure(app, env, logger);
         }
 
-        private static void DeveloperFriendlyFeatures(IApplicationBuilder app)
+        private static void ConfigureDeveloperFriendlyFeatures(IApplicationBuilder app)
         {
             app.UseDeveloperExceptionPage();
             app.UseSwagger();
@@ -86,7 +82,7 @@ namespace UsingMediator
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
             logger.LogInformation("Current Environment is {environmentName}", env.EnvironmentName);
-            
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
