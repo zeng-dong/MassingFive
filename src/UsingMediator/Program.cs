@@ -11,7 +11,7 @@ namespace UsingMediator
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static void TemprarilyDisabledMain(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
         }
@@ -20,7 +20,8 @@ namespace UsingMediator
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    //webBuilder.UseStartup<Startup>();
+                    webBuilder.UseStartup(typeof(Startup).Assembly.FullName);
                 });
     }
 }
