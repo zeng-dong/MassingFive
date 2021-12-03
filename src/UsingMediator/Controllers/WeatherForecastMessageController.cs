@@ -9,19 +9,18 @@ namespace UsingMediator.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class WeatherForecastMassController : ControllerBase
+    public class WeatherForecastMessageController : ControllerBase
     {
         private readonly IMediator _mediator;
-
         private readonly IRequestClient<GetWeatherForecasts> _requestClient;
 
-        public WeatherForecastMassController(IRequestClient<GetWeatherForecasts> requestClient, IMediator mediator)
+        public WeatherForecastMessageController(IRequestClient<GetWeatherForecasts> requestClient, IMediator mediator)
         {
             _requestClient = requestClient;
             _mediator = mediator;
         }
 
-        [HttpGet("OnDemandMediator")]
+        [HttpGet("my-own-request-client")]
         public async Task<IEnumerable<WeatherForecast>> GetUsingDemandedRequestCleint()
         {
             var client = _mediator.CreateRequestClient<GetWeatherForecasts>();
@@ -30,7 +29,7 @@ namespace UsingMediator.Controllers
             return response.Message.Forecasts;
         }
 
-        [HttpGet("JustGet")]
+        [HttpGet("injected-request-client")]
         public async Task<IEnumerable<WeatherForecast>> GetUsingInjectedRequestClient()
         {
             var response = await _requestClient.GetResponse<WeatherForecasts>(new { });
