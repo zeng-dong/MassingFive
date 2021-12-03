@@ -36,7 +36,7 @@ namespace UsingMediator
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Using Mediator", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Using Mediator (Startup)", Version = "v1" });
             });
         }
 
