@@ -13,8 +13,8 @@ namespace UsingMediator
 {
     public class ProgramThatDoesNotNeedStartupClass
     {
-        //public static void Change_To_Main_When_You_Want_To_Try_This(string[] args)
-        public static void Main(string[] args)
+        public static void Change_To_Main_When_You_Want_To_Try_This(string[] args)
+        //public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
         }

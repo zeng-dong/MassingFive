@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
 namespace UsingMediator
@@ -20,7 +21,7 @@ namespace UsingMediator
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public void ConfigureMediatorServices(IServiceCollection services)
         {
 
             services.AddMediator(cfg =>
@@ -29,10 +30,20 @@ namespace UsingMediator
                 cfg.AddConsumer<GetWeatherForecastConsumer>();
 
                 cfg.AddRequestClient<SubmitOrder>();
-                
+
                 // Remove this if you are only using this request client by creating it on the fly 
-                cfg.AddRequestClient<GetWeatherForecasts>(); 
+                cfg.AddRequestClient<GetWeatherForecasts>();
             });
+                        
+            services.AddControllers();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Using Mediator", Version = "v1" });
+            });
+        }
+
+        public void ConfigureRabbitServices(IServiceCollection services)
+        {           
 
             //services.AddMassTransit(cfg =>
             //{
@@ -46,20 +57,36 @@ namespace UsingMediator
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "UsingMediator", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Using RabbitMQ", Version = "v1" });
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "UsingMediator v1"));
-            }
 
+        public void ConfigureMediator(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
+        {
+            logger.LogInformation("Now configure mediator specifics", env.EnvironmentName);
+            DeveloperFriendlyFeatures(app);
+            Configure(app, env, logger);
+        }
+
+        public void ConfigureRabbit(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
+        {
+            logger.LogInformation("Now configure rabbit specifics", env.EnvironmentName);
+            DeveloperFriendlyFeatures(app);
+            Configure(app, env, logger);
+        }
+
+        private static void DeveloperFriendlyFeatures(IApplicationBuilder app)
+        {
+            app.UseDeveloperExceptionPage();
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "UsingMediator v1"));
+        }
+
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
+        {
+            logger.LogInformation("Current Environment is {environmentName}", env.EnvironmentName);
+            
             app.UseHttpsRedirection();
 
             app.UseRouting();
