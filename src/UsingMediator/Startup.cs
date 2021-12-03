@@ -26,8 +26,12 @@ namespace UsingMediator
             services.AddMediator(cfg =>
             {
                 cfg.AddConsumer<SubmitOrderConsumer>();
+                cfg.AddConsumer<GetWeatherForecastConsumer>();
 
                 cfg.AddRequestClient<SubmitOrder>();
+                
+                // Remove this if you are only using this request client by creating it on the fly 
+                cfg.AddRequestClient<GetWeatherForecasts>(); 
             });
 
             //services.AddMassTransit(cfg =>
