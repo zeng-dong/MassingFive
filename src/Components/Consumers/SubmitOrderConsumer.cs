@@ -37,7 +37,6 @@ namespace Components.Consumers
                 context.Message.OrderId,
                 context.Message.CustomerNumber
             });
-
         }
     }
 }

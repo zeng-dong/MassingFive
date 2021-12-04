@@ -42,14 +42,7 @@ namespace UsingMediator
 
         public void ConfigureRabbitServices(IServiceCollection services)
         {
-            //services.AddMassTransit(cfg =>
-            //{
-            //    cfg.AddConsumer<SubmitOrderConsumer>();
-            //
-            //    before version 7 mediator is added here: cfg.AddMediator(...)
-            //    cfg.AddRequestClient<SubmitOrder>();
-            //
-            //});
+            // do rabbit config
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -61,22 +54,22 @@ namespace UsingMediator
         public void ConfigureMediator(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
             logger.LogInformation("Now configure mediator specifics", env.EnvironmentName);
-            ConfigureDeveloperFriendlyFeatures(app);
+            ConfigureDeveloperFriendlyFeatures(app, "UsingMediator v1");
             Configure(app, env, logger);
         }
 
         public void ConfigureRabbit(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
             logger.LogInformation("Now configure rabbit specifics", env.EnvironmentName);
-            ConfigureDeveloperFriendlyFeatures(app);
+            ConfigureDeveloperFriendlyFeatures(app, "UsingRabbit v1");
             Configure(app, env, logger);
         }
 
-        private static void ConfigureDeveloperFriendlyFeatures(IApplicationBuilder app)
+        private static void ConfigureDeveloperFriendlyFeatures(IApplicationBuilder app, string swaggerName)
         {
             app.UseDeveloperExceptionPage();
             app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "UsingMediator v1"));
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", swaggerName));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)

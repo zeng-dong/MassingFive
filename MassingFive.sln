@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleWorker", "src\SimpleW
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UsingMediator", "src\UsingMediator\UsingMediator.csproj", "{6AC79188-4E2C-41A7-9FB9-3CC8B2843413}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts", "src\Contracts\Contracts.csproj", "{8E863ED7-8ED6-4B29-B0FB-923854F9E061}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contracts", "src\Contracts\Contracts.csproj", "{8E863ED7-8ED6-4B29-B0FB-923854F9E061}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Components", "src\Components\Components.csproj", "{1C6F64E3-FE28-44CD-A310-029774E323A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Components", "src\Components\Components.csproj", "{1C6F64E3-FE28-44CD-A310-029774E323A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleService", "src\ConsoleService\ConsoleService.csproj", "{3B46C9E2-11D5-4A3F-8414-4A68D9AFE0A9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{1C6F64E3-FE28-44CD-A310-029774E323A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C6F64E3-FE28-44CD-A310-029774E323A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C6F64E3-FE28-44CD-A310-029774E323A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B46C9E2-11D5-4A3F-8414-4A68D9AFE0A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B46C9E2-11D5-4A3F-8414-4A68D9AFE0A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B46C9E2-11D5-4A3F-8414-4A68D9AFE0A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B46C9E2-11D5-4A3F-8414-4A68D9AFE0A9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
